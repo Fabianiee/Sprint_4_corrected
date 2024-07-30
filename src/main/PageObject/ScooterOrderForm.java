@@ -3,31 +3,28 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class ScooterOrderForm {
-    private final WebDriverWait wait;
+
+
     private WebDriver driver;
+
+    // Локатор поля ввода имени
+    private By nameField = By.xpath(".//input[@placeholder='* Имя']");
+    // Локатор поля ввода фамилии
+    private By surnameField = By.xpath(".//input[@placeholder='* Фамилия']");
+    // Локатор поля ввода адреса
+    private By addressField = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    // Локатор поля выбора станции метро
+    private By metroStation = By.xpath(".//input[@placeholder='* Станция метро']");
+    // Локатор поля ввода номера телефона
+    private By phoneField =
+            By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    // Локатор кнопки далее
+    private By nextButton = By.xpath(".//div[@class='Order_NextButton__1_rCA']/button");
 
     public ScooterOrderForm(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
-
-    // Локаторы формы заказа:
-    //поле для ввода имени
-    private final By nameField = By.xpath(".//*[@id='root']/div/div[2]/div[2]/div[1]/input");
-    //поле для ввода фамилии
-    private final By surnameField = By.xpath(".//*[@id='root']/div/div[2]/div[2]/div[2]/input");
-    // поле для ввода адреса
-    private final By addressField = By.xpath(".//*[@id='root']/div/div[2]/div[2]/div[3]/input");
-    // поле для выбора станции метро
-    private final By metroStation = By.xpath(".//*[@id='root']/div/div[2]/div[2]/div[4]/div/div/input");
-    //полеа для ввода номера телефона
-    private final By phoneField = By.xpath(".//*[@id='root']/div/div[2]/div[2]/div[5]/input");
-    //кнопка "Далее"
-    private final By nextButton = By.xpath(".//*[@id='root']/div/div[2]/div[3]/button");
-
 
     public void setName(String firstName) {
         driver.findElement(nameField).sendKeys(firstName);
@@ -51,15 +48,17 @@ public class ScooterOrderForm {
         driver.findElement(metroStation).sendKeys(Keys.ENTER);
     }
 
+    public void fillOrderForm(String name, String surname, String address, String phoneNumber) {
+        setName(name);
+        setSurname(surname);
+        setAddress(address);
+        setPhoneNumber(phoneNumber);
+        chooseMetroStation();
+    }
+
     public void clickNextButton() {
         driver.findElement(nextButton).click();
     }
-
-    public void fillOrderForm(String nameField, String surnameField, String addressField, String metroStation, String phoneField, String deliveryDateField, String rentalPeriodField, String scooterColourField, String commentField) {
-    }
 }
-
-
-
 
 
